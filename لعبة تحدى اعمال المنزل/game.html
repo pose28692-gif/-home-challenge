@@ -2,122 +2,107 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Family Wheel - تحدي الأبطال 🎡</title>
+    <title>Family Wheel - نظام المستويات 🏆</title>
     <style>
-        :root { --primary: #ff7675; --accent: #6c5ce7; --success: #00b894; --gold: #f1c40f; }
+        :root { --primary: #ff7675; --accent: #6c5ce7; --success: #00b894; --error: #d63031; --gold: #f1c40f; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #fdfaf5; margin: 0; padding: 0; direction: rtl; }
-        
-        /* تصميم الغلاف الخارجي */
-        .cover-page {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white;
-            text-align: center;
-        }
-        .game-logo {
-            width: 150px;
-            height: 150px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        .container { max-width: 900px; margin: 20px auto; background: white; padding: 30px; border-radius: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); text-align: center; display: none; }
+        .cover-page { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; text-align: center; }
+        .game-logo { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .container { max-width: 1000px; margin: 20px auto; background: white; padding: 30px; border-radius: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); text-align: center; display: none; }
         .screen { display: none; animation: fadeIn 0.4s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* العجلة والأسهم */
-        .wheel-box { position: relative; width: 340px; height: 340px; margin: 40px auto; }
+        .wheel-box { position: relative; width: 320px; height: 320px; margin: 40px auto; }
         canvas { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
         .arrow-in { position: absolute; width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 30px solid var(--primary); z-index: 10; }
         .arrow-label { position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 3px 12px; border-radius: 8px; font-size: 13px; white-space: nowrap; font-weight: bold; }
         #arr-0 { top: -35px; left: 50%; transform: translateX(-50%); border-bottom-color: #ff4757; }
         #arr-1 { right: -35px; top: 50%; transform: translateY(-50%) rotate(-90deg); border-bottom-color: #2f3542; }
         #arr-2 { left: -35px; top: 50%; transform: translateY(-50%) rotate(90deg); border-bottom-color: #747d8c; }
-
         input { padding: 12px; border-radius: 12px; border: 2px solid #eee; margin: 8px; width: 85%; font-size: 16px; text-align: center; }
         .btn { background: var(--primary); color: white; border: none; padding: 14px 40px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; margin: 10px; }
-        .player-card { background: #fff; padding: 20px; border-radius: 30px; border: 3px solid #f1f2f6; margin-bottom: 20px; }
-        .completed { border-color: var(--success); background: #f0fff4; }
-        .prize-wheel-mini { width: 150px; height: 150px; margin: 10px auto; display: none; }
-        .prize-text { font-weight: bold; color: var(--gold); font-size: 18px; margin-top: 10px; }
+        .player-card { background: #fff; padding: 25px; border-radius: 35px; border: 4px solid #f1f2f6; transition: 0.3s; }
+        .completed { border-color: var(--success) !important; background: #f0fff4; }
+        .mini-canvas { width: 160px; height: 160px; border-radius: 50%; border: 4px solid #fff; }
+        .level-badge { background: var(--gold); color: #333; padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
     </style>
 </head>
 <body>
 
 <div id="cover" class="cover-page">
     <div class="game-logo">🎡</div>
-    <h1 style="font-size: 40px; margin: 10px;">Family Wheel</h1>
-    <p style="font-size: 20px; opacity: 0.9;">تحدي الأبطال.. نفذ المهمة واربح الجائزة!</p>
-    <button class="btn" style="background: white; color: var(--accent); padding: 20px 60px;" onclick="startGame()">ابدأ اللعب الآن</button>
+    <h1>Family Wheel</h1>
+    <p>نظام المستويات: نفذ 6 مهام لتفتح صندوق الجوائز!</p>
+    <button class="btn" style="background: white; color: var(--accent);" onclick="startGame()">ابدأ التحدي</button>
 </div>
 
 <div class="container" id="mainContainer">
     <div id="setup" class="screen active">
-        <h1 style="color: var(--accent);">إعداد التحدي 📝</h1>
+        <h2 style="color: var(--accent);">تجهيز الـ 6 مهام 📝</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div id="tasks">
-                <h3>المهام 📝</h3>
-                <input type="text" value="غسيل المواعين">
-                <input type="text" value="ترويق الصالة">
-                <input type="text" value="تلميع الزجاج">
-                <input type="text" value="كنس الغرف">
-                <input type="text" value="سقي الزرع">
-                <input type="text" value="ترتيب السرير">
+            <div id="tasks-input">
+                <input type="text" value="غسيل المواعين"> <input type="text" value="ترويق الصالة">
+                <input type="text" value="تلميع المرايات"> <input type="text" value="كنس الغرف">
+                <input type="text" value="سقي الزرع"> <input type="text" value="ترتيب السرير">
             </div>
-            <div id="players">
-                <h3>الأبطال 👥</h3>
+            <div id="players-input">
                 <input type="text" placeholder="اللاعب الأول">
                 <input type="text" placeholder="اللاعب الثاني">
                 <input type="text" placeholder="اللاعب الثالث">
             </div>
         </div>
-        <button class="btn" onclick="goToWheel()">توزيع المهام 🎡</button>
+        <button class="btn" onclick="initWheel()">ابدأ المستوى الأول 🚀</button>
     </div>
 
     <div id="wheel-screen" class="screen">
-        <h2>لف العجلة لتوزيع المهام 🎢</h2>
+        <div class="level-badge" id="level-text">المستوى 1: توزيع أول 3 مهام</div>
         <div class="wheel-box" id="main-wheel-box">
-            <canvas id="canvas" width="400" height="400"></canvas>
+            <canvas id="mainCanvas" width="400" height="400"></canvas>
         </div>
-        <button class="btn" id="spinMain" onclick="spinMain()">لف العجلة 🚀</button>
+        <button class="btn" id="spinBtn" onclick="spinMain()">لف العجلة 🚀</button>
     </div>
 
-    <div id="challenge" class="screen">
-        <h2>أثبت تنفيذك واربح جائزتك! 🎁</h2>
-        <div id="dashboard"></div>
-        <button class="btn" style="margin-top:30px; display:none;" id="reloadBtn" onclick="location.reload()">تحدي جديد 🔄</button>
+    <div id="challenge-screen" class="screen">
+        <h2 id="round-title">الجولة الحالية</h2>
+        <div class="players-grid" id="dashboard" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;"></div>
+        <div id="next-level-zone" style="display:none; margin-top:30px;">
+            <button class="btn" style="background:var(--accent)" onclick="startLevelTwo()">انتقل للمستوى الثاني (المهام المتبقية) ➡️</button>
+        </div>
+        <div id="final-prizes-zone" style="display:none; margin-top:30px; border-top: 5px dashed var(--gold); padding-top:20px;">
+            <h1 style="color:var(--gold)">🏆 تم إنجاز الـ 6 مهام! وقت الجوائز 🏆</h1>
+            <div id="prizes-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;"></div>
+            <button class="btn" onclick="location.reload()">لعبة جديدة 🔄</button>
+        </div>
     </div>
 </div>
 
 <script>
-    let players = [], tasks = [], assignments = [], rotation = 0;
+    let players = [], allTasks = [], currentTasks = [], assignments = [], totalFinished = 0, currentLevel = 1;
+    let playerScores = {}; // لتخزين عدد المهام المنفذة لكل لاعب
     const colors = ['#ff7675', '#fdcb6e', '#55efc4', '#81ecec', '#a29bfe', '#fab1a0'];
-    const prizes = ["اختيار خروجة 🚗", "اختيار فيلم 🎬", "اختيار سناكس 🍿", "إعفاء غداً ✨"];
+    const prizeList = ["خروجة 🚗", "فيلم 🎬", "سناكس 🍿", "إعفاء غداً ✨"];
 
     function startGame() {
         document.getElementById('cover').style.display = 'none';
         document.getElementById('mainContainer').style.display = 'block';
     }
 
-    function goToWheel() {
-        tasks = Array.from(document.querySelectorAll('#tasks input')).map(i => i.value).filter(v => v);
-        players = Array.from(document.querySelectorAll('#players input')).map(i => i.value).filter(v => v);
-        if(players.length < 1) return;
+    function initWheel() {
+        allTasks = Array.from(document.querySelectorAll('#tasks-input input')).map(i => i.value).filter(v => v);
+        players = Array.from(document.querySelectorAll('#players-input input')).map(i => i.value).filter(v => v);
+        if(players.length !== 3) return alert("يجب إدخال 3 لاعبين بالضبط لنظام المستويات!");
+        
+        players.forEach(p => playerScores[p] = 0);
+        setupLevel();
+    }
 
+    function setupLevel() {
+        currentTasks = (currentLevel === 1) ? allTasks.slice(0,3) : allTasks.slice(3,6);
+        document.getElementById('level-text').innerText = `المستوى ${currentLevel}: توزيع 3 مهام`;
+        
         const box = document.getElementById('main-wheel-box');
+        box.querySelectorAll('.arrow-in').forEach(a => a.remove());
         players.forEach((p, i) => {
             const arrow = document.createElement('div');
             arrow.className = 'arrow-in'; arrow.id = `arr-${i}`;
@@ -127,88 +112,102 @@
 
         document.getElementById('setup').classList.remove('active');
         document.getElementById('wheel-screen').classList.add('active');
-        drawWheel('canvas', tasks);
+        document.getElementById('challenge-screen').classList.remove('active');
+        drawWheel('mainCanvas', currentTasks);
+        document.getElementById('spinBtn').disabled = false;
     }
 
     function drawWheel(id, list) {
         const ctx = document.getElementById(id).getContext('2d');
         const slice = (Math.PI * 2) / list.length;
-        list.forEach((item, i) => {
+        ctx.clearRect(0,0,400,400);
+        list.forEach((text, i) => {
             ctx.save(); ctx.beginPath(); ctx.fillStyle = colors[i % colors.length];
-            ctx.moveTo(200, 200); ctx.arc(200, 200, 200, slice * i, slice * (i+1));
-            ctx.fill(); ctx.stroke(); ctx.translate(200, 200); ctx.rotate(slice * i + slice/2);
-            ctx.textAlign = "right"; ctx.fillStyle = "#333"; ctx.font = "bold 15px Arial";
-            ctx.fillText(item, 180, 8); ctx.restore();
+            ctx.moveTo(200, 200); ctx.arc(200, 200, 200, slice * i, slice * (i+1)); ctx.fill();
+            ctx.translate(200, 200); ctx.rotate(slice * i + slice/2);
+            ctx.textAlign = "right"; ctx.fillStyle = "#333"; ctx.font = "bold 16px Arial";
+            ctx.fillText(text, 180, 8); ctx.restore();
         });
     }
 
     function spinMain() {
-        document.getElementById('spinMain').disabled = true;
-        rotation += Math.floor(Math.random() * 360) + 1440;
-        const canvas = document.getElementById('canvas');
+        document.getElementById('spinBtn').disabled = true;
+        let rot = Math.floor(Math.random() * 360) + 1440;
+        const canvas = document.getElementById('mainCanvas');
         canvas.style.transition = "transform 4s cubic-bezier(0.1, 0, 0.2, 1)";
-        canvas.style.transform = `rotate(${rotation}deg)`;
+        canvas.style.transform = `rotate(${rot}deg)`;
 
         setTimeout(() => {
-            const finalDeg = rotation % 360;
-            const slice = 360 / tasks.length;
-            const offsets = [270, 0, 180];
             assignments = players.map((name, i) => {
-                let pos = (finalDeg + offsets[i]) % 360;
-                let idx = tasks.length - 1 - Math.floor(pos / slice);
-                return { name, task: tasks[idx >= 0 ? idx : 0], gender: name.slice(-1) === 'ة' ? 'f' : 'm' };
+                let pos = (rot + [270, 0, 180][i]) % 360;
+                let idx = currentTasks.length - 1 - Math.floor(pos / (360/currentTasks.length));
+                return { name, task: currentTasks[idx >= 0 ? idx : 0], done: false };
             });
-            showChallenge();
+            renderChallenge();
         }, 4500);
     }
 
-    function showChallenge() {
+    function renderChallenge() {
         document.getElementById('wheel-screen').classList.remove('active');
-        document.getElementById('challenge').classList.add('active');
+        document.getElementById('challenge-screen').classList.add('active');
+        document.getElementById('round-title').innerText = `المستوى ${currentLevel}: نفذوا مهامكم!`;
         const db = document.getElementById('dashboard');
         db.innerHTML = assignments.map((p, i) => `
             <div class="player-card" id="card-${i}">
-                <h3>${p.name}</h3>
-                <p>مهمتك: <b>${p.task}</b></p>
-                <div id="timer-${i}" style="font-size:25px; margin:10px;">15:00</div>
-                <label class="btn" style="background:var(--accent); font-size:14px;">
-                    <input type="file" accept="image/*" capture="camera" style="display:none" onchange="winPrize(this, ${i})">
-                    📸 ${p.gender === 'f' ? 'صوري الإثبات' : 'صور الإثبات'}
-                </label>
-                <div id="prize-zone-${i}">
-                    <canvas id="pw-${i}" class="prize-wheel-mini" width="200" height="200"></canvas>
-                    <div id="pt-${i}" class="prize-text"></div>
-                </div>
+                <h4>${p.name}</h4>
+                <p style="font-size:14px">المهمة: <b>${p.task}</b></p>
+                <input type="file" accept="image/*" capture="camera" id="file-${i}" style="display:none" onchange="verify(${i})">
+                <button class="btn" style="padding:10px 20px; font-size:12px" onclick="document.getElementById('file-${i}').click()">📸 تصوير</button>
             </div>
         `).join("");
-        assignments.forEach((_, i) => startTimer(i));
     }
 
-    function startTimer(idx) {
-        let time = 900;
-        const intrvl = setInterval(() => {
-            let m = Math.floor(time/60), s = time%60;
-            document.getElementById(`timer-${idx}`).innerText = `${m}:${s<10?'0':''}${s}`;
-            if(time-- <= 0) clearInterval(intrvl);
-        }, 1000);
+    function verify(idx) {
+        assignments[idx].done = true;
+        document.getElementById(`card-${idx}`).classList.add('completed');
+        document.getElementById(`card-${idx}`).innerHTML += "✅ تم";
+        
+        if(assignments.every(a => a.done)) {
+            if(currentLevel === 1) {
+                document.getElementById('next-level-zone').style.display = 'block';
+            } else {
+                showFinalPrizes();
+            }
+        }
     }
 
-    function winPrize(input, idx) {
-        const file = input.files[0];
-        if(!file || (new Date().getTime() - file.lastModified) > 40000) return alert("صورة حية فوراً!");
-        const card = document.getElementById(`card-${idx}`);
-        card.classList.add('completed');
-        const wheel = document.getElementById(`pw-${idx}`);
-        wheel.style.display = 'block';
-        drawWheel(`pw-${idx}`, prizes);
-        let rot = 1440 + Math.floor(Math.random() * 360);
-        wheel.style.transition = "transform 3s ease-out";
-        wheel.style.transform = `rotate(${rot}deg)`;
-        setTimeout(() => {
-            const pIdx = prizes.length - 1 - Math.floor((rot % 360) / (360/prizes.length));
-            document.getElementById(`pt-${idx}`).innerText = `🎉 مبروك! جائزتك: ${prizes[pIdx >= 0 ? pIdx : 0]}`;
-            document.getElementById('reloadBtn').style.display = 'inline-block';
-        }, 3200);
+    function startLevelTwo() {
+        currentLevel = 2;
+        document.getElementById('next-level-zone').style.display = 'none';
+        setupLevel();
+    }
+
+    function showFinalPrizes() {
+        document.getElementById('dashboard').style.opacity = '0.3';
+        document.getElementById('final-prizes-zone').style.display = 'block';
+        const grid = document.getElementById('prizes-grid');
+        let availablePrizes = [...prizeList];
+
+        grid.innerHTML = players.map((p, i) => `
+            <div class="player-card completed">
+                <h3>${p}</h3>
+                <canvas id="prize-canvas-${i}" class="mini-canvas" width="400" height="400"></canvas>
+                <div id="prize-text-${i}" style="font-weight:bold; color:var(--accent); margin-top:10px;">...</div>
+            </div>
+        `).join("");
+
+        players.forEach((p, i) => {
+            drawWheel(`prize-canvas-${i}`, availablePrizes);
+            let rot = 1440 + Math.floor(Math.random() * 360);
+            document.getElementById(`prize-canvas-${i}`).style.transition = "transform 3s ease-out";
+            document.getElementById(`prize-canvas-${i}`).style.transform = `rotate(${rot}deg)`;
+
+            setTimeout(() => {
+                let pIdx = availablePrizes.length - 1 - Math.floor((rot % 360) / (360/availablePrizes.length));
+                let win = availablePrizes.splice(pIdx, 1)[0];
+                document.getElementById(`prize-text-${i}`).innerText = `🎁 جائزتك: ${win}`;
+            }, 3200);
+        });
     }
 </script>
 </body>
