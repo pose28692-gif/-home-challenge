@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dor="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <title>تحميل لعبة تحدى اعمال المنزل</title>
+    <link rel="stylesheet" href="https;//cdnjs.cloudflare.com/ajax/libs/font=awesome/6.0.0-bete3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial' , sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce38a, #f38181); /* ألوان فرفوشة */
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .loading-container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo-icon {
+            font-size: 80px;
+            margin: 0 15px;
+            color: #ffd3b6;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .kitchen-mixer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            top: -10px;
+        }
+
+        .mixer-icon {
+            font-size: 60px;
+            margin-bottom: -15px;
+        }
+
+        .bowl-icon {
+            font-size: 100px;
+            color: #ff9a8d;
+        }
+
+        .loading-text {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin: 30px auto 0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo">
+            <i class="fas fa-broom logo-icon left"></i> <div class="kitchen-mixer">
+                <i class="fas fa-blender logo-icon mixer-icon"></i> <i class="fas fa-bowl-food logo-icon bowl-icon"></i> </div>
+            <i class="fas fa-spray-can logo-icon right"></i> </div>
+        <p class="loading-text">جارى تحميل اللعبة... استعدوا للتحدى!</p>
+        <div class="spinner"></div>
+    </div>
+    <script>
+        // بعد 3 ثوانى، هنحول لصفحة اللعبة الرئيسية(هنسميها game.html)
+        setTimeout(() => {
+            window.location.href = "game.html"; // اسم ملف اللعبة الرئيسية
+        }, 3000); // ملي ثانية = 3 ثوانى 3000
+    </script>
+</body>
+</html>
